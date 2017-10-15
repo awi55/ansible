@@ -34,7 +34,7 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
     if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
     }
-    echo "Connected successfully";
+    echo "Connected Successfully! ";
 
     if($method==="POST")
     {
@@ -50,7 +50,7 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
         }
         else
         {
-            echo "Preparation Succeeded!!";
+            echo "Prepare Statement Successful! ";
         }
         // TODO check that $stmt creation succeeded
 
@@ -62,7 +62,7 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
         }
         else
         {
-            echo "Binding Succeeded!!";
+            echo "Binding Successful! ";
         }
 
         //$stmt->execute();
@@ -72,7 +72,7 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
         }
         else
         {
-            echo "Execution Succeeded!!!<br/>";
+            echo "Execution Successful <br/>";
             echo '<h4>'.$unsafe_firstname." ".$unsafe_lastname.'</h4>';
             echo "<h4>total amount due is: ".$unsafe_amount.'</h4>';
         }
