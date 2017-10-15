@@ -13,8 +13,8 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
     
     <?php
     $servername = "localhost";
-    $user="abc";
-    $password="abc ";
+    $user="bobauto";
+    $password="bobauto";
     $dbname="Assignmentdb";
 
 
