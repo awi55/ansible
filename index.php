@@ -72,7 +72,9 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
         }
         else
         {
-            echo "Execution Succeeded!!";
+            echo "Execution Succeeded!!!<br/>";
+            echo '<h4>'.$unsafe_firstname." ".$unsafe_lastname.'</h4>';
+            echo "<h4>total amount due is: ".$unsafe_amount.'</h4>';
         }
         $stmt->close();
 
@@ -80,7 +82,6 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
 
          $conn->close();
     }
-    include 'Welcome.php';
     ?>
     </form>
 </body>
