@@ -32,16 +32,37 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
     $unsafe_nooftyres = $_POST['tyres'];
     $unsafe_amount=$_post['&tyres'* 110];
 
-    $stmt = $conn->prepare("INSERT INTO Orders (firstname, lastname, noOfTyres, Amount)
-    VALUES (?, ?, ?,?)");
-
+    //$stmt = $conn->prepare("INSERT INTO Orders (firstname, lastname, noOfTyres, Amount) VALUES (?,?,?,?)");
+    if(!($stmt = $conn->prepare("INSERT INTO Orders (firstname, lastname, noOfTyres, Amount) VALUES (?,?,?,?)")))
+    {
+        echo "Prepare Failed: (" .$conn->errno. ") ". $conn->error;
+    }
+    else
+    {
+        echo "Preparation Succeeded!!";
+    }
     // TODO check that $stmt creation succeeded
 
     // "s" means the database expects a string "i" means integer
-    $stmt->bind_param("ssii", $unsafe_firstname,$unsafe_lasstname,$unsafe_nooftyres,$unsafe_amount);
-
-    $stmt->execute();
-
+    //$stmt->bind_param("ssii", $unsafe_firstname,$unsafe_lasstname,$unsafe_nooftyres,$unsafe_amount);
+    if(!$stmt->bind_param("ssii", $unsafe_firstname,$unsafe_lasstname,$unsafe_nooftyres,$unsafe_amount))
+    {
+        echo "Binding parameters Failed: (" .$stmt->errno. ") ". $stmt->error;
+    }
+    else
+    {
+        echo "Binding Succeeded!!";
+    }
+    
+    //$stmt->execute();
+    if(!$stmt->execute())
+    {
+        echo "Execution Failed: (" .$stmt->errno. ") ". $stmt->error;
+    }
+    else
+    {
+        echo "Execution Succeeded!!";
+    }
     $stmt->close();
 
     $mysqli->close();
