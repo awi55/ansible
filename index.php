@@ -17,7 +17,16 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
     $password="bobauto";
     $dbname="Assignmentdb";
 
-
+    //Checker whether the the REQUEST_METHOD variable is present
+    if(isset($_SERVER['REQUEST_METHOD']))
+        $method = $_SERVER['REQUEST_METHOD'];
+        //Checking whether the REQUEST_METHOD is POST Else return HTTP_RESPONSE (400)
+    if(isset($method) && ($method!=="POST")) {
+        http_response_code(400);
+        exit;
+    }
+    
+    
     // Create connection
     $conn = new mysqli($servername,$user, $password,$dbname);
 
@@ -27,47 +36,50 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
     }
     echo "Connected successfully";
 
-    $unsafe_firstname = $_POST['firstname'];
-    $unsafe_lastname = $_POST['lastname'];
-    $unsafe_nooftyres = $_POST['tyres'];
-    $unsafe_amount=$_post['&tyres'* 110];
+    if($method==="POST")
+    {
+        $unsafe_firstname = $_POST['firstname'];
+        $unsafe_lastname = $_POST['lastname'];
+        $unsafe_nooftyres = $_POST['tyres'];
+        $unsafe_amount=$unsafe_nooftyres * 110;
 
-    //$stmt = $conn->prepare("INSERT INTO Orders (firstname, lastname, noOfTyres, Amount) VALUES (?,?,?,?)");
-    if(!($stmt = $conn->prepare("INSERT INTO Orders (firstname, lastname, noOfTyres, Amount) VALUES (?,?,?,?)")))
-    {
-        echo "Prepare Failed: (" .$conn->errno. ") ". $conn->error;
-    }
-    else
-    {
-        echo "Preparation Succeeded!!";
-    }
-    // TODO check that $stmt creation succeeded
+        //$stmt = $conn->prepare("INSERT INTO Orders (firstname, lastname, noOfTyres, Amount) VALUES (?,?,?,?)");
+        if(!($stmt = $conn->prepare("INSERT INTO Orders (firstname, lastname, noOfTyres, Amount) VALUES (?,?,?,?)")))
+        {
+            echo "Prepare Failed: (" .$conn->errno. ") ". $conn->error;
+        }
+        else
+        {
+            echo "Preparation Succeeded!!";
+        }
+        // TODO check that $stmt creation succeeded
 
-    // "s" means the database expects a string "i" means integer
-    //$stmt->bind_param("ssii", $unsafe_firstname,$unsafe_lasstname,$unsafe_nooftyres,$unsafe_amount);
-    if(!$stmt->bind_param("ssii", $unsafe_firstname,$unsafe_lasstname,$unsafe_nooftyres,$unsafe_amount))
-    {
-        echo "Binding parameters Failed: (" .$stmt->errno. ") ". $stmt->error;
-    }
-    else
-    {
-        echo "Binding Succeeded!!";
-    }
-    
-    //$stmt->execute();
-    if(!$stmt->execute())
-    {
-        echo "Execution Failed: (" .$stmt->errno. ") ". $stmt->error;
-    }
-    else
-    {
-        echo "Execution Succeeded!!";
-    }
-    $stmt->close();
+        // "s" means the database expects a string "i" means integer
+        //$stmt->bind_param("ssii", $unsafe_firstname,$unsafe_lasstname,$unsafe_nooftyres,$unsafe_amount);
+        if(!$stmt->bind_param("ssii", $unsafe_firstname,$unsafe_lastname,$unsafe_nooftyres,$unsafe_amount))
+        {
+            echo "Binding parameters Failed: (" .$stmt->errno. ") ". $stmt->error;
+        }
+        else
+        {
+            echo "Binding Succeeded!!";
+        }
 
-    $mysqli->close();
+        //$stmt->execute();
+        if(!$stmt->execute())
+        {
+            echo "Execution Failed: (" .$stmt->errno. ") ". $stmt->error;
+        }
+        else
+        {
+            echo "Execution Succeeded!!";
+        }
+        $stmt->close();
 
-     $conn->close();
+        $mysqli->close();
+
+         $conn->close();
+    }
     ?>
     </form>
 </body>
