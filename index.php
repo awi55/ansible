@@ -27,12 +27,12 @@ Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><
     }
     echo "Connected successfully";
 
-    $unsafe_firstname = $_POST['$firstname'];
-    $unsafe_lasstname = $_POST['$lastname'];
-    $unsafe_nooftyres = $_POST['$tyres'];
+    $unsafe_firstname = $_POST['firstname'];
+    $unsafe_lastname = $_POST['lastname'];
+    $unsafe_nooftyres = $_POST['tyres'];
     $unsafe_amount=$_post['&tyres'* 110];
 
-    $stmt = $mysqli->prepare("INSERT INTO Orders (firstname, lastname, noOftyres, Amount)
+    $stmt = $mysqli->prepare("INSERT INTO Orders (firstname, lastname, noOfTyres, Amount)
     VALUES (?, ?, ?,?)");
 
     // TODO check that $stmt creation succeeded
